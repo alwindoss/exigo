@@ -1,0 +1,29 @@
+---
+version: '3.9'
+
+services:
+  exigo:
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
+  postgres_db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: exigo
+      POSTGRES_PASSWORD: exigo
+      POSTGRES_DB: exigo
+    volumes:
+      - "./postgres/postgres.conf:/usr/local/etc/postgres/postgres.conf"
+      - "./postgres/data:/var/lib/postgresql/data:delegated"
+    command: "postgres -c config_file=/usr/local/etc/postgres/postgres.conf"
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres_db
