@@ -8,5 +8,5 @@ import (
 //go:embed dist
 var DistDir embed.FS
 
-//go:embed dist/index.html
-var indexHTML embed.FS
+// //go:embed dist/index.html
+// var indexHTML embed.FS
